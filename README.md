@@ -7,11 +7,15 @@ Go to the directory where you want to install GenoFaecium.
 Clone the repository.
 
 ```
-git clone [name].git
+git clone https://github.com/kihyunee/GenoFaecium.git
 ```
 
 # Download the pre-compiled database for GenoFaecium
 Go to the directory where you want to store the database, e.g., inside the directory you just cloned above.
+
+```
+cd GenoFaecium/
+```
 
 Download the .tar.gz file of pre-compiled database and extract it.
 
