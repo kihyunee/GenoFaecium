@@ -229,18 +229,14 @@ source ~/.bashrc
 
 
 # 3. Pre-compiled database for GenoFaecium
-Go to the directory where you want to store the database, e.g., inside the directory you just cloned above.
-
+Go to the GenoFaecium directory (the directory you cloned above).
+Download the [genofaecium_db_pre_compiled.tar.gz](https://zenodo.org/records/15104799/files/genofaecium_db_pre_compiled.tar.gz) file containing pre-compiled databases and extract it.
 ```
-cd GenoFaecium/
-```
-
-Download the .tar.gz file of pre-compiled database and extract it.
-
-```
-wget -O genofaecium_db_pre_compiled.tar.gz https://zenodo.org/records/15079127/files/genofaecium_db_pre_compiled.tar.gz?download=1
+cd /home/kihyunee/GenoFaecium
+wget -O genofaecium_db_pre_compiled.tar.gz https://zenodo.org/records/15104799/files/genofaecium_db_pre_compiled.tar.gz --no-check-certificate
 tar -xzf genofaecium_db_pre_compiled.tar.gz
 ```
+
 
 
 
