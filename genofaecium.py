@@ -55,7 +55,7 @@ from genofaecium_run_external import run_shell_command_tool_check, run_tool_chec
 3. output directory
 4. threads to use
 """
-parser = argparse.ArgumentParser(description="Modify FASTQ sequence titles and merge into one gzipped output file.")
+parser = argparse.ArgumentParser(description="Extract epidemiologically important information from Enterococcus faecalis genome assembly.")
 parser.add_argument("--fasta", dest = "input_genome_fasta", required=True, type=str, help="Path to the input genome assembly fasta file")
 parser.add_argument("--out", dest = "output_prefix", required=True, type=str, help="Path to the output prefix (PREFIX.result.txt and PREFIX.files/ will be generated)")
 parser.add_argument("--tool_dir", dest = "tool_basedir", required=True, type=str, help="Path to the base directory of GenoFaecium installation (e.g., '/home/user/GenoFaecium');  Under this directory path, you are expected to have 'conda_packages' subdirectory, 'dependency_binary' subdirectory, and 'genofaecium_db_pre_compiled' subdirectory")
