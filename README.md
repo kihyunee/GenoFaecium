@@ -111,8 +111,8 @@ conda create -n prokka-1.14.6 prokka=1.14.6 -c conda-forge -c bioconda
 conda pack -n prokka-1.14.6 -o prokka-1.14.6.tar.gz
 ```
 
-**What you should do is to download [prokka-1.14.6.tar.gz](https://zenodo.org/records/15104799/files/prokka-1.14.6.tar.gz), 
-and unpack prokka-1.14.6.tar.gz in your GenoFaecium directory:**
+**What you should do is the following lines, 
+to download [prokka-1.14.6.tar.gz](https://zenodo.org/records/15104799/files/prokka-1.14.6.tar.gz) and unpack prokka-1.14.6.tar.gz in your GenoFaecium directory:**
 ```
 mkdir /home/kihyunee/GenoFaecium/conda_packages
 cd /home/kihyunee/GenoFaecium/conda_packages
@@ -135,8 +135,8 @@ conda create -y -c conda-forge -c bioconda -n amrfinder-3.12.8 --strict-channel-
 conda pack -n amrfinder-3.12.8 -o amrfinder-3.12.8.tar.gz
 ```
 
-**What you should do is to download [amrfinder-3.12.8.tar.gz](https://zenodo.org/records/15104799/files/amrfinder-3.12.8.tar.gz), 
-and unpack amrfinder-3.12.8.tar.gz in your GenoFaecium directory:**
+**What you should do is the following lines, 
+to download [amrfinder-3.12.8.tar.gz](https://zenodo.org/records/15104799/files/amrfinder-3.12.8.tar.gz) and unpack amrfinder-3.12.8.tar.gz in your GenoFaecium directory:**
 ```
 mkdir /home/kihyunee/GenoFaecium/conda_packages/amrfinder-3.12.8
 cd /home/kihyunee/GenoFaecium/conda_packages/amrfinder-3.12.8
@@ -156,8 +156,8 @@ conda create -n abricate-1.0.1 -c conda-forge -c bioconda -c defaults abricate=1
 conda pack -n abricate-1.0.1 -o abricate-1.0.1.tar.gz
 ```
 
-**What you should do is to download [abricate-1.0.1.tar.gz](https://zenodo.org/records/15104799/files/abricate-1.0.1.tar.gz?download=1), 
-and unpack abricate-1.0.1.tar.gz in your GenoFaecium directory:**
+**What you should do is the following lines, 
+to download [abricate-1.0.1.tar.gz](https://zenodo.org/records/15104799/files/abricate-1.0.1.tar.gz?download=1) and unpack abricate-1.0.1.tar.gz in your GenoFaecium directory:**
 ```
 mkdir /home/kihyunee/GenoFaecium/conda_packages/abricate-1.0.1
 cd /home/kihyunee/GenoFaecium/conda_packages/abricate-1.0.1
@@ -178,8 +178,8 @@ conda create -n mlst-2.23.0 mlst=2.23.0 -c conda-forge -c bioconda -c defaults
 conda pack -n mlst-2.23.0 -o mlst-2.23.0.tar.gz
 ```
 
-**What you should do is to download [mlst-2.23.0.tar.gz](https://zenodo.org/records/15104799/files/mlst-2.23.0.tar.gz?download=1), 
-and unpack mlst-2.23.0.tar.gz in your GenoFaecium directory:**
+**What you should do is the following lines, 
+to download [mlst-2.23.0.tar.gz](https://zenodo.org/records/15104799/files/mlst-2.23.0.tar.gz?download=1) and unpack mlst-2.23.0.tar.gz in your GenoFaecium directory:**
 ```
 mkdir /home/kihyunee/GenoFaecium/conda_packages/mlst-2.23.0
 cd /home/kihyunee/GenoFaecium/conda_packages/mlst-2.23.0
@@ -234,7 +234,7 @@ python genofaecium.py --fasta test_input/GCA_047785525.1.fasta --out test_output
 ```
 
 The output files 
-## <prefix>.result_col.txt
+## prefix.result_col.txt
 - Is a two-column tab-delimited table of field names (column 1) and report values (column 2).
 - The order or fields is consistent across all output files.
 - Example output content:
@@ -274,7 +274,7 @@ Biofilm esp     .
 Other VFs       .
 ```
 
-## <preifx>.result_row.txt
+## preifx.result_row.txt
 - Is a single-row text file, tab-delimited list of report values ordered as the rows presented in the above column-format output file.
 - This is made for you to easily concatenate the reports generated for many isolates into a single table using `cat`.
 - Example output content:
@@ -282,5 +282,5 @@ Other VFs       .
 GCA_047785525.1 296     3079105 Enterococcus faecium    80      aac(6')-I,aac(6')-Ie/aph(2'')-Ia,aph(3')-IIIa,ant(6)-Ia pbp5_M485A      .       .       vanA.       .       .       .       .       .       .       tet(S),tet(L)   liaR_W73C,liaS_T120A    .       .       .       .       gyrA_S83I,parC_S80I     msr(C),erm(B)       acm     sgrA    fss3    .       scm     .       .
 ```
 
-## <prefix>.files/ 
+## prefix.files/ 
 - Is a directory containing intermediate files
