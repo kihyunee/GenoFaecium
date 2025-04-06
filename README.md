@@ -98,13 +98,7 @@ cp minimap2-2.28_x64-linux/minimap2 .
 
 ## Rest of the installations will use conda
 From here on, we install the tools using conda, in conda environment made for each specific tool.
-```
-Tool            Environment
-AMRFinderPlus   amrfinder
-Abricate
-Prokka
-mlst
-```
+However, *you don't have to activate any of these environments before executing the Genofaecium script because the script takes care of environments switching.
 
 ## 2.(7) Prokka
 Prokka will be used to predict genes in the input genome sequences.
