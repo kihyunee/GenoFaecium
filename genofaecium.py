@@ -96,7 +96,9 @@ species_id_mapping_file = os.path.join(tool_basedir, "genofaecium_db_pre_compile
 
 # Check if dependencies are called and then collect the version information from each tool.
 # 1) fastANI in the 'genofaecium_base' env
-fastani_exist, fastani_version = run_tool_check_in_env(basepack_install_dir, "fastANI --version")
+fastani_exist, fastani_version = run_tool_check_in_env(basepack_install_dir, "fastANI -h")
+if fastani_exist:
+    fastani_version = 'secret'
 # 2) minimap2 in the 'genofaecium_base' env
 minimap_exist, minimap_version = run_tool_check_in_env(basepack_install_dir, "minimap2 --version")
 # 3) samtools in the 'genofaecium_base' env
