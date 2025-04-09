@@ -1,5 +1,7 @@
 # 1. GenoFaecium
-Genomic analysis framework for Enterococcus faecium clinical isolates.
+GenoFaecium extracts epidemiologically important information from Enterococcus faecalis genome assembly.
+
+It is aimed to serve as a convenient tool & genomic analysis framework for Enterococcus faecium clinical isolates.
 
 
 # 2. Installation
@@ -96,19 +98,16 @@ cd ../../
 ```
 python genofaecium.py -h
 
-usage: genofaecium.py [-h] --fasta INPUT_GENOME_FASTA --out OUTPUT_PREFIX --tool_dir TOOL_BASEDIR [--threads THREADS_STR] [--sample SAMPLE_NAME]
+usage: genofaecium.py [-h] --fasta INPUT_GENOME_FASTA --out OUTPUT_PREFIX [--tool_dir TOOL_BASEDIR] [--threads THREADS_STR] [--sample SAMPLE_NAME]
 
 options:
-  -h, --help            show this help message and exit
-  --fasta INPUT_GENOME_FASTA
-                        Path to the input genome assembly fasta file
-  --out OUTPUT_PREFIX   Path to the output prefix (PREFIX.result.txt and PREFIX.files/ will be generated)
-  --tool_dir TOOL_BASEDIR
-                        Path to the base directory of GenoFaecium installation (e.g., '/home/user/GenoFaecium'); Under this directory path, you are
-                        expected to have 'conda_packages' subdirectory, 'dependency_binary' subdirectory, and 'genofaecium_db_pre_compiled' subdirectory
-  --threads THREADS_STR
-                        Number of threads to use (default = 2)
-  --sample SAMPLE_NAME  sample name to be written in the first column of the output file; default = input fasta file name minus fasta
+  -h, --help            show help message and exit
+  --fasta  <File>       Path to the input genome assembly fasta file
+  --out    <Path>       Path to the output file prefix (PREFIX.result.txt and PREFIX.files/ will be generated)
+  --tool_dir  <Path>    (default = auto-detection) Path to the base directory of GenoFaecium installation (e.g., '~/GenoFaecium')
+                        Expected to have 'conda_packages' and 'genofaecium_db_pre_compiled' subdirectories there.
+  --threads <N>         (default = 2) Number of threads to use
+  --sample <Name>       (default = input fasta file name minus .fasta) Sample name to be written in the first column of the output file
 ```
 
 For example, to you will find an E. faecium genome fasta file at `test_genome/GCA_047613505.1.faecium.fasta` in the tool's directory.
