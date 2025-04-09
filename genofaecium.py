@@ -221,7 +221,7 @@ prepare output directory
     mkdir output_dir
 '''
 output_basedir = os.path.dirname(output_prefix)
-if not os.path.isdir(output_basedir):
+if output_basedir != "" and (not os.path.isdir(output_basedir)):
     os.makedirs(output_basedir)
 output_tmp_files_dir = output_prefix + '.files'
 if not os.path.isdir(output_tmp_files_dir):
