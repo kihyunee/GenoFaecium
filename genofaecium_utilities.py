@@ -1,5 +1,6 @@
 import os
 import subprocess
+from genofaecium_run_external import run_shell_command_tool_check, run_tool_check_in_env, run_tool_job_in_env
 
 
 
@@ -31,7 +32,7 @@ def check_genome_fasta_sanity(fasta_file):
 
 
 
-def run_identification_by_fastani(fastani_executable, input_genome_fasta, species_id_db_dir, species_id_mapping_file, output_tmp_fastani, threads_str):
+def run_identification_by_fastani(fastani_conda_dir, input_genome_fasta, species_id_db_dir, species_id_mapping_file, output_tmp_fastani, threads_str):
     # species_id_db_dir = os.path.join(tool_basedir, "genofaecium_db_pre_compiled", "species_id_ref")()
     # species_id_mapping_file = os.path.join(tool_basedir, "genofaecium_db_pre_compiled", "species_id_ref.acc_2_spp.map")()
     # fastANI --rl species_id_ref.fofn -q test_genome/GCA_047261185.1.faecalis.fasta -t 4 -o test_genome/GCA_047261185.1.faecalis.fasta.output/GCA_047261185.1.faecalis.species_ani
@@ -51,8 +52,8 @@ def run_identification_by_fastani(fastani_executable, input_genome_fasta, specie
     fw.close()
     
     print("[GenoFaecium] [run_identification_by_fastani] run fastANI")
-    run_command = [fastani_executable, '--rl', tmp_fofn, '-q', input_genome_fasta, '-t', threads_str, '-o', output_tmp_fastani]
-    subprocess.run(run_command)
+    fastani_command = f"fastANI --rl {tmp_fofn} -q {input_genome_fasta} -t {threads_str} -o {output_tmp_fastani}"
+    fastani_run_ok, fastani_error_message = run_tool_job_in_env(fastani_conda_dir, fastani_command)
     os.remove(tmp_fofn)
     
     return dict_acc_species

@@ -58,9 +58,9 @@ from genofaecium_run_external import run_shell_command_tool_check, run_tool_chec
 parser = argparse.ArgumentParser(description="Extract epidemiologically important information from Enterococcus faecalis genome assembly.")
 parser.add_argument("--fasta", dest = "input_genome_fasta", required=True, type=str, help="Path to the input genome assembly fasta file")
 parser.add_argument("--out", dest = "output_prefix", required=True, type=str, help="Path to the output prefix (PREFIX.result.txt and PREFIX.files/ will be generated)")
-parser.add_argument("--tool_dir", dest = "tool_basedir", required=True, type=str, help="Path to the base directory of GenoFaecium installation (e.g., '/home/user/GenoFaecium');  Under this directory path, you are expected to have 'conda_packages' subdirectory, 'dependency_binary' subdirectory, and 'genofaecium_db_pre_compiled' subdirectory")
-parser.add_argument("--threads", dest = "threads_str", required=False, type=str, default="2", help="Number of threads to use (default = 2)")
-parser.add_argument("--sample", dest = "sample_name", required=False, type=str, default = "_NS", help="sample name to be written in the first column of the output file; default = input fasta file name minus fasta")
+parser.add_argument("--tool_dir", dest = "tool_basedir", required=False, type=str, default='_NS', help="(default = auto-detection) Path to the base directory of GenoFaecium installation (e.g., '/home/user/GenoFaecium');  Under this directory path, you are expected to have 'conda_packages' subdirectory, 'dependency_binary' subdirectory, and 'genofaecium_db_pre_compiled' subdirectory")
+parser.add_argument("--threads", dest = "threads_str", required=False, type=str, default="2", help="(default = 2) Number of threads to use")
+parser.add_argument("--sample", dest = "sample_name", required=False, type=str, default = "_NS", help="(default = input fasta file name minus .fasta) Sample name to be written in the first column of the output file")
 args = parser.parse_args()
 
 
@@ -70,15 +70,17 @@ output_prefix = args.output_prefix
 sample_name_str = args.sample_name
 threads_str = args.threads_str
 
+if tool_basedir == '_NS':
+    tool_basedir = script_dir
+
 
 # Check if the necessary contents exist in the tool base directory 
 # - Tools
+basepack_install_dir = os.path.join(tool_basedir, "conda_packages", "genofaecium_base")
 prokka_install_dir = os.path.join(tool_basedir, "conda_packages", "prokka-1.14.6")
 amrfinder_install_dir = os.path.join(tool_basedir, "conda_packages", "amrfinder-3.12.8")
 abricate_install_dir = os.path.join(tool_basedir, "conda_packages", "abricate-1.0.1")
 mlst_install_dir = os.path.join(tool_basedir, "conda_packages", "mlst-2.23.0")
-fastani_executable = os.path.join(tool_basedir, "dependency_binary", "fastANI")
-minimap_executable = os.path.join(tool_basedir, "dependency_binary", "minimap2-2.28_x64-linux", "minimap2")
 # - Database files
 abricate_db_dir = os.path.join(tool_basedir, "genofaecium_db_pre_compiled", "abricate_db")
 abricate_db_vfdb_dir = os.path.join(tool_basedir, "genofaecium_db_pre_compiled", "abricate_db", "vfdb")
@@ -93,17 +95,22 @@ species_id_mapping_file = os.path.join(tool_basedir, "genofaecium_db_pre_compile
 
 
 # Check if dependencies are called and then collect the version information from each tool.
-# 1) for fastANI
-fastani_exist, fastani_version = run_shell_command_tool_check(fastani_executable + " --version")
-# 2) for minimap2
-minimap_exist, minimap_version = run_shell_command_tool_check(minimap_executable + " --version")
-# 3) for prokka in its own environment
+# 1) fastANI in the 'genofaecium_base' env
+fastani_exist, fastani_version = run_tool_check_in_env(basepack_install_dir, "fastANI --version")
+# 2) minimap2 in the 'genofaecium_base' env
+minimap_exist, minimap_version = run_tool_check_in_env(basepack_install_dir, "minimap2 --version")
+# 3) samtools in the 'genofaecium_base' env
+samtools_exist, samtools_version = run_tool_check_in_env(basepack_install_dir, "samtools --version")
+# 4) bcftools in the 'genofaecium_base' env
+bcftools_exist, bcftools_version = run_tool_check_in_env(basepack_install_dir, "bcftools --version")
+
+# 5) prokka in its own environment
 prokka_exist, prokka_version = run_tool_check_in_env(prokka_install_dir, "prokka --version")
-# 4) for amrfinder in its own environment
+# 6) amrfinder in its own environment
 amrfinder_exist, amrfinder_version = run_tool_check_in_env(amrfinder_install_dir, "amrfinder --version")
-# 5) for abricate in its own environment
+# 7) abricate in its own environment
 abricate_exist, abricate_version = run_tool_check_in_env(abricate_install_dir, "abricate --version")
-# 6) for mlst in its own environment
+# 8) mlst in its own environment
 mlst_exist, mlst_version = run_tool_check_in_env(mlst_install_dir, "mlst --version")
 
 
@@ -144,12 +151,22 @@ if fastani_exist:
     print("fastANI ... " + fastani_version + " (OK)")
 else:
     dependencies_work = False
-    what_are_wrong.append("fastANI not found at the expected path: " + fastani_executable)
+    what_are_wrong.append("fastANI not found at the expected environment: " + basepack_install_dir)
 if minimap_exist:
     print("minimap2 ... " + minimap_version + " (OK)")
 else:
     dependencies_work = False
-    what_are_wrong.append("minimap2 not found at the expected path: " + minimap_executable)
+    what_are_wrong.append("minimap2 not found at the expected environment: " + basepack_install_dir)
+if samtools_exist:
+    print("samtools ... " + samtools_version + " (OK)")
+else:
+    dependencies_work = False
+    what_are_wrong.append("samtools not found at the expected environment: " + basepack_install_dir)
+if bcftools_exist:
+    print("bcftools ... " + bcftools_version + " (OK)")
+else:
+    dependencies_work = False
+    what_are_wrong.append("bcftools not found at the expected environment: " + basepack_install_dir)
 if prokka_exist:
     print("prokka ... " + prokka_version + " (OK)")
 else:
@@ -225,7 +242,7 @@ reporting_contents = []
 #   create fofn of ref genome paths -- contain all paths under the pre-compiled DB directory's 'species_id_ref' directory's .fasta sub file paths
 #   run fastANI
 #   output: test_genome/GCA_047261185.1.faecalis.fasta.output/GCA_047261185.1.faecalis.species_ani
-dict_ref_acc_species = run_identification_by_fastani(fastani_executable, input_genome_fasta, species_id_db_dir, species_id_mapping_file, output_tmp_fastani, threads_str)
+dict_ref_acc_species = run_identification_by_fastani(basepack_install_dir, input_genome_fasta, species_id_db_dir, species_id_mapping_file, output_tmp_fastani, threads_str)
 
 # 2. mlst 2.23.0
 #   run mlst with --scheme efaecium
