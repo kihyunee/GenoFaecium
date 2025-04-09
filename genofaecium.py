@@ -152,7 +152,7 @@ if not os.path.isfile(vf_rule_vf_genotype_file):
 if fastani_exist:
     print("fastANI ... " + fastani_version + " (OK)")
 else:
-    dependencies_work = False
+    #dependencies_work = False
     what_are_wrong.append("fastANI not found at the expected environment: " + basepack_install_dir)
 if minimap_exist:
     print("minimap2 ... " + minimap_version + " (OK)")
