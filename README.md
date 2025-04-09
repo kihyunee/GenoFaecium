@@ -115,11 +115,11 @@ For example, to you will find an E. faecium genome fasta file at `test_genome/GC
 Analyze that genome sequence:
 
 ```
-python genofaecium.py --fasta test_input/GCA_047785525.1.fasta --out test_output/GCA_047785525.1
+python genofaecium.py --fasta test_genome/GCA_047613505.1.faecium.fasta --out test_output/GCA_047785525.1
 
-python genofaecium.py --fasta test_input/GCA_047785525.1.fasta --out test_output/GCA_047785525.1 --threads 4
+python genofaecium.py --fasta test_genome/GCA_047613505.1.faecium.fasta --out test_output/GCA_047785525.1 --threads 4
 
-python genofaecium.py --fasta test_input/GCA_047785525.1.fasta --out test_output/GCA_047785525.1 --threads 4 --sample VRE_isolate_007
+python genofaecium.py --fasta test_genome/GCA_047613505.1.faecium.fasta --out test_output/GCA_047785525.1 --threads 4 --sample Efm_isolate_007
 ```
 
 The output files 
